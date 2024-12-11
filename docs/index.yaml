@@ -1,0 +1,33 @@
+apiVersion: v1
+entries:
+  common:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T22:39:04.1771214+09:00"
+    description: A Helm chart for managing the ingress controller
+    digest: 5895f765a6ac040216875e21753481b764176731e56496d6b61ee9145305b0c1
+    name: common
+    urls:
+    - https://github.com/dev-library/gitops_helmchart_deploy/common-1.0.0.tgz
+    version: 1.0.0
+  db-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T22:39:04.1781548+09:00"
+    description: A Helm chart for deploying the database
+    digest: c746efd82125c6eaecf2a03f7b9c75b09f179f5a265fc85378455c43ba0f44fb
+    name: db-chart
+    urls:
+    - https://github.com/dev-library/gitops_helmchart_deploy/db-chart-1.0.0.tgz
+    version: 1.0.0
+  msa-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T22:39:04.1781548+09:00"
+    description: A Helm chart for deploying microservices
+    digest: 3222340d50fc8fbd8eb87e27405c52c90a55c2fd95b1ed06f310bd30a9d0daab
+    name: msa-chart
+    urls:
+    - https://github.com/dev-library/gitops_helmchart_deploy/msa-chart-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-12-11T22:39:04.1761215+09:00"
