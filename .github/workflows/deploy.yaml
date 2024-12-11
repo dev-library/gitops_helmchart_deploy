@@ -3,7 +3,7 @@ name: Deploy Helm Chart to EKS
 on:
   push:
     branches:
-      - main # main 브랜치에 푸시될 때 실행
+      - master # master 브랜치에 푸시될 때 실행
   workflow_dispatch: # 수동 실행 지원
 
 jobs:
