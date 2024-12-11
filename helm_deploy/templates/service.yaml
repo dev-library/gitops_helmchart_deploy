@@ -29,6 +29,7 @@ spec:
 # 일반 서비스 템플릿 생성
 {{- range $key, $value := .Values }}
 {{- if hasKey $value "service" }}
+{{- if and (hasKey $value.service "name") (hasKey $value.service "type") }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -47,5 +48,6 @@ spec:
   ports:
   - port: {{ $value.service.port }}
     targetPort: {{ $value.service.targetPort }}
+{{- end }}
 {{- end }}
 {{- end }}
