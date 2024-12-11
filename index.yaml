@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  msa-helm-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T17:17:11.766154+09:00"
+    description: A Helm chart for MSA application
+    digest: 812771a1210e065d97ac3d1526c2fb65adda1e63de2c9ada2ef2ed95505a2afe
+    name: msa-helm-chart
+    type: application
+    urls:
+    - msa-helm-chart-0.1.0.tgz
+    version: 0.1.0
+generated: "2024-12-11T17:17:11.765124+09:00"
