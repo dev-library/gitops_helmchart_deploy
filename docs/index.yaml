@@ -1,33 +1,33 @@
 apiVersion: v1
 entries:
+  app-chart:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T23:12:22.9845028+09:00"
+    description: A Helm chart for deploying microservices
+    digest: 618a164bf61b5fb39e435b7c8c4f0ad816a2c0e5ee84913b515a6a67c1e006cb
+    name: app-chart
+    urls:
+    - https://dev-library.github.io/gitops_helmchart_deploy/app-chart-1.0.0.tgz
+    version: 1.0.0
   common:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-11T22:39:04.1771214+09:00"
+    created: "2024-12-11T23:12:22.9850181+09:00"
     description: A Helm chart for managing the ingress controller
-    digest: 5895f765a6ac040216875e21753481b764176731e56496d6b61ee9145305b0c1
+    digest: 59e4c11ef08d9faaf1c3aab1c04556e688d4bda47ef402c9e21549efe4195043
     name: common
     urls:
-    - https://github.com/dev-library/gitops_helmchart_deploy/common-1.0.0.tgz
+    - https://dev-library.github.io/gitops_helmchart_deploy/common-1.0.0.tgz
     version: 1.0.0
   db-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-11T22:39:04.1781548+09:00"
+    created: "2024-12-11T23:12:22.9855315+09:00"
     description: A Helm chart for deploying the database
-    digest: c746efd82125c6eaecf2a03f7b9c75b09f179f5a265fc85378455c43ba0f44fb
+    digest: 44231b534d167c48c0f18cf8a5aab7d271e3ab8af927fa1889f81f6a5e90f6cb
     name: db-chart
     urls:
-    - https://github.com/dev-library/gitops_helmchart_deploy/db-chart-1.0.0.tgz
+    - https://dev-library.github.io/gitops_helmchart_deploy/db-chart-1.0.0.tgz
     version: 1.0.0
-  msa-chart:
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2024-12-11T22:39:04.1781548+09:00"
-    description: A Helm chart for deploying microservices
-    digest: 3222340d50fc8fbd8eb87e27405c52c90a55c2fd95b1ed06f310bd30a9d0daab
-    name: msa-chart
-    urls:
-    - https://github.com/dev-library/gitops_helmchart_deploy/msa-chart-1.0.0.tgz
-    version: 1.0.0
-generated: "2024-12-11T22:39:04.1761215+09:00"
+generated: "2024-12-11T23:12:22.9834536+09:00"
