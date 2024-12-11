@@ -1,0 +1,5 @@
+apiVersion: v2
+name: db-chart
+description: A Helm chart for deploying the database
+version: 1.0.0
+appVersion: "1.0.0"

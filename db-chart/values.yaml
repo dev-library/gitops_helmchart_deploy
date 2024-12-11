@@ -1,0 +1,26 @@
+msaDb:
+  name: msa-db
+  labels:
+    app: msa-db
+  replicas: 1
+  service:
+    - name: msa-db-headless
+      type: ClusterIP
+      clusterIP: None
+      ports:
+        - port: 3306
+          targetPort: 3306
+    - name: msa-db-service
+      type: NodePort
+      ports:
+        - port: 3306
+          targetPort: 3306
+          nodePort: 30303
+  container:
+    image: makersworld/msa-db-mysql8:amd64
+    port: 3306
+  env:
+    password: "12341234"
+  storage:
+    mountPath: /var/lib/mysql
+    path: /data/mysql

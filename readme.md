@@ -1,1 +1,1 @@
-# helm, helm chart와 github actions로 관리하는 프로그램 배포!
+# helm, helm chart와 gitops를 조합한 배포 실습
