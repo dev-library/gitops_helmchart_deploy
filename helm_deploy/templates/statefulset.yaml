@@ -1,0 +1,35 @@
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.msaDb.name }}
+  labels:
+    app: {{ .Values.msaDb.labels.app }}
+spec:
+  replicas: {{ .Values.msaDb.replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.msaDb.labels.app }}
+  serviceName: {{ .Values.msaDb.serviceName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.msaDb.labels.app }}
+    spec:
+      containers:
+      - name: mysql
+        image: {{ .Values.msaDb.container.image }}
+        ports:
+        - containerPort: {{ .Values.msaDb.container.port }}
+          name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: {{ .Values.msaDb.env.password }}
+        volumeMounts:
+        - name: mysql-storage
+          mountPath: {{ .Values.msaDb.storage.mountPath }}
+      volumes:
+      - name: mysql-storage
+        hostPath:
+          path: {{ .Values.msaDb.storage.path }}
+          type: DirectoryOrCreate

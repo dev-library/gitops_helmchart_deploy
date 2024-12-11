@@ -1,0 +1,34 @@
+{{- range $key, $value := .Values }}
+{{- if hasKey $value "deployment" }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $value.deployment.name }}
+  labels:
+    app: {{ $value.deployment.labels.app }}
+spec:
+  replicas: {{ $value.deployment.replicas }}
+  selector:
+    matchLabels:
+      app: {{ $value.deployment.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ $value.deployment.labels.app }}
+    spec:
+      containers:
+      - name: {{ $value.deployment.container.name }}
+        image: {{ $value.deployment.container.image }}
+        ports:
+        - containerPort: {{ $value.deployment.container.port }}
+        env:
+        - name: DB_HOST
+          value: {{ $value.deployment.env.dbHost }}
+        - name: DB_PORT
+          value: {{ $value.deployment.env.dbPort }}
+        - name: DB_USER
+          value: {{ $value.deployment.env.dbUser }}
+        - name: DB_PASSWORD
+          value: {{ $value.deployment.env.dbPassword }}
+{{- end }}
+{{- end }}

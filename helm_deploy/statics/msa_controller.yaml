@@ -1,0 +1,216 @@
+# Step 1: Namespace 생성 (Ingress Controller 배포용)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress-nginx
+
+---
+# Step 2: ServiceAccount 생성
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: ingress-nginx
+  namespace: ingress-nginx
+
+---
+# Step 3: ClusterRole 생성
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: ingress-nginx
+rules:
+- apiGroups: ["discovery.k8s.io"]
+  resources: ["endpointslices"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources:
+  - configmaps
+  - endpoints
+  - nodes
+  - secrets
+  verbs:
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - pods
+  verbs:
+  - list
+  - get
+  - watch
+- apiGroups: [""]
+  resources:
+  - nodes/status
+  verbs:
+  - patch
+- apiGroups: [""]
+  resources:
+  - services
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [networking.k8s.io]
+  resources:
+  - ingresses
+  - ingresses/status
+  verbs:
+  - get
+  - list
+  - watch
+  - update
+- apiGroups: [networking.k8s.io]
+  resources:
+  - ingressclasses
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups: [""]
+  resources:
+  - events
+  verbs:
+  - create
+  - patch
+- apiGroups: [coordination.k8s.io]
+  resources:
+  - leases
+  verbs:
+  - create
+  - get
+  - list
+  - update
+- apiGroups: [""]
+  resources:
+  - namespaces
+  verbs:
+  - get
+  - list
+  - watch
+
+---
+# Step 4: ClusterRoleBinding 생성
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: ingress-nginx
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: ingress-nginx
+subjects:
+- kind: ServiceAccount
+  name: ingress-nginx
+  namespace: ingress-nginx
+
+---
+# Step 5: IngressClass 생성
+apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  name: nginx
+spec:
+  controller: k8s.io/ingress-nginx
+
+---
+# Step 6: NGINX Ingress Controller Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ingress-nginx
+  template:
+    metadata:
+      labels:
+        app: ingress-nginx
+    spec:
+      serviceAccountName: ingress-nginx
+      containers:
+      - name: ingress-nginx-controller
+        image: k8s.gcr.io/ingress-nginx/controller:v1.7.0
+        args:
+        - /nginx-ingress-controller
+        - --publish-service=$(POD_NAMESPACE)/ingress-nginx-controller
+        - --election-id=ingress-nginx-leader
+        - --controller-class=k8s.io/ingress-nginx
+        - --ingress-class=nginx
+        ports:
+        - name: http
+          containerPort: 80
+        - name: https
+          containerPort: 443
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+
+---
+# Step 7: NGINX Ingress Controller Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: ingress-nginx-controller
+  namespace: ingress-nginx
+  labels:
+    app: ingress-nginx
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  - port: 443
+    targetPort: https
+    protocol: TCP
+    name: https
+  selector:
+    app: ingress-nginx
+
+---
+# Step 8: Ingress 리소스 정의
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: msa-ingress
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/enable-access-log: "true" # kubectl logs -n ingress-nginx -l app=ingress-nginx 로 로그 조회
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /api/v1/orders
+        pathType: Prefix
+        backend:
+          service:
+            name: msa-main-service
+            port:
+              number: 8080
+      - path: /api/v1/users
+        pathType: Prefix
+        backend:
+          service:
+            name: msa-user-service
+            port:
+              number: 8080
+      - path: /api/v1/reviews
+        pathType: Prefix
+        backend:
+          service:
+            name: msa-review-service
+            port:
+              number: 8080

@@ -1,0 +1,83 @@
+msaDb:
+  name: msa-db
+  labels:
+    app: msa-db
+  replicas: 1
+  serviceName: msa-db-headless
+  container:
+    image: makersworld/msa-db-mysql8:amd64
+    port: 3306
+  env:
+    password: "12341234"
+  storage:
+    mountPath: /var/lib/mysql
+    path: /data/mysql
+
+msaMain:
+  deployment:
+    name: msa-main
+    labels:
+      app: msa-main
+    replicas: 1
+    container:
+      name: msa-main
+      image: chadchae1373/msa_main:0.99
+      port: 8080
+    env:
+      dbHost: msa-db-service
+      dbPort: "3306"
+      dbUser: root
+      dbPassword: "12341234"
+  service:
+    name: msa-main-service
+    labels:
+      app: msa-main
+    type: LoadBalancer
+    port: 8080
+    targetPort: 8080
+
+msaReview:
+  deployment:
+    name: msa-review
+    labels:
+      app: msa-review
+    replicas: 1
+    container:
+      name: msa-review
+      image: chadchae1373/msa_review:0.99
+      port: 8080
+    env:
+      dbHost: msa-db-service
+      dbPort: "3306"
+      dbUser: root
+      dbPassword: "12341234"
+  service:
+    name: msa-review-service
+    labels:
+      app: msa-review
+    type: LoadBalancer
+    port: 8080
+    targetPort: 8080
+
+msaUser:
+  deployment:
+    name: msa-user
+    labels:
+      app: msa-user
+    replicas: 1
+    container:
+      name: msa-user
+      image: chadchae1373/msa_user:0.99
+      port: 8080
+    env:
+      dbHost: msa-db-service
+      dbPort: "3306"
+      dbUser: root
+      dbPassword: "12341234"
+  service:
+    name: msa-user-service
+    labels:
+      app: msa-user
+    type: LoadBalancer
+    port: 8080
+    targetPort: 8080
