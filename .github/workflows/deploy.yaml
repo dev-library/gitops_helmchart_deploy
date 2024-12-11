@@ -46,8 +46,8 @@ jobs:
           helm repo update
 
       # 7. Deploy Helm Chart
-      - name: Deploy Helm Chart to EKS
+      - name: Deploy Helm Chart
         run: |
           helm upgrade --install msa-helm gitops_helmchart_deploy/msa-helm-chart \
           -n msa-namespace --create-namespace \
-          -f values.yaml
+          -f helm_deploy/values.yaml
