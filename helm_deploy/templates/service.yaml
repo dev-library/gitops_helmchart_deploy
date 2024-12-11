@@ -1,17 +1,22 @@
-{{- range $key, $value := .Values }}
-{{- if hasKey $value "service" }}
+{{- range .Values.msaDb.services }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ $value.service.name }}
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
   labels:
-    app: {{ $value.service.labels.app }}
+    app: {{ $.Values.msaDb.labels.app }}
 spec:
-  type: {{ $value.service.type }}
+  type: {{ .type }}
   ports:
-  - port: {{ $value.service.port }}
-    targetPort: {{ $value.service.targetPort }}
+  - port: {{ .port }}
+    targetPort: {{ .targetPort }}
+    {{- if .nodePort }}
+    nodePort: {{ .nodePort }}
+    {{- end }}
+  {{- if .clusterIP }}
+  clusterIP: {{ .clusterIP }}
+  {{- end }}
   selector:
-    app: {{ $value.service.labels.app }}
-{{- end }}
+    app: {{ $.Values.msaDb.labels.app }}
 {{- end }}
