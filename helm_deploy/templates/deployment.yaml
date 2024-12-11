@@ -23,12 +23,12 @@ spec:
         - containerPort: {{ $value.deployment.container.port }}
         env:
         - name: DB_HOST
-          value: {{ $value.deployment.env.dbHost }}
+          value: {{ $value.deployment.env.dbHost | quote }}
         - name: DB_PORT
-          value: {{ $value.deployment.env.dbPort }}
+          value: {{ $value.deployment.env.dbPort | quote }}
         - name: DB_USER
-          value: {{ $value.deployment.env.dbUser }}
+          value: {{ $value.deployment.env.dbUser | quote }}
         - name: DB_PASSWORD
-          value: {{ $value.deployment.env.dbPassword }}
+          value: {{ $value.deployment.env.dbPassword | quote }}
 {{- end }}
 {{- end }}
