@@ -37,7 +37,7 @@ jobs:
       # 5. Update kubeconfig for EKS
       - name: Update kubeconfig
         run: |
-          aws eks update-kubeconfig --region ap-northeast-2 --name 
+          aws eks update-kubeconfig --region ap-northeast-2 --name hana111Cluster
 
       # 6. Add Helm Repository
       - name: Add Helm Repository
