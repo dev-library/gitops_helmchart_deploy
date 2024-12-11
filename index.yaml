@@ -3,7 +3,17 @@ entries:
   msa-helm-chart:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-11T19:37:00.508182+09:00"
+    created: "2024-12-11T19:59:59.5226344+09:00"
+    description: A Helm chart for MSA application
+    digest: e157314e87c7e42da069cd184586239d0be2860c3b6ac8ca40287233aebb80a3
+    name: msa-helm-chart
+    type: application
+    urls:
+    - https://dev-library.github.io/gitops_helmchart_deploy/msa-helm-chart-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-12-11T19:59:59.5216454+09:00"
     description: A Helm chart for MSA application
     digest: d4aceb89867b1678d82e2bea644abc8eff2be74430c303de5c5accb356da2a0f
     name: msa-helm-chart
@@ -13,7 +23,7 @@ entries:
     version: 0.1.1
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-12-11T19:37:00.508182+09:00"
+    created: "2024-12-11T19:59:59.5206362+09:00"
     description: A Helm chart for MSA application
     digest: 812771a1210e065d97ac3d1526c2fb65adda1e63de2c9ada2ef2ed95505a2afe
     name: msa-helm-chart
@@ -21,4 +31,4 @@ entries:
     urls:
     - https://dev-library.github.io/gitops_helmchart_deploy/msa-helm-chart-0.1.0.tgz
     version: 0.1.0
-generated: "2024-12-11T19:37:00.5062447+09:00"
+generated: "2024-12-11T19:59:59.5186357+09:00"
