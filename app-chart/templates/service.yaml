@@ -1,5 +1,6 @@
 {{- range $key, $value := .Values }}
 {{- if hasKey $value "service" }}
+---
 apiVersion: v1
 kind: Service
 metadata:

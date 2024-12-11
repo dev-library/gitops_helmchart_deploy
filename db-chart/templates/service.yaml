@@ -1,5 +1,6 @@
 {{- if .Values.msaDb.service }}
 {{- range .Values.msaDb.service }}
+---
 apiVersion: v1
 kind: Service
 metadata:
