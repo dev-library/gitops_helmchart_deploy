@@ -25,9 +25,9 @@ msaMain:
       port: 8080
     env:
       dbHost: msa-db-service
-      dbPort: "3306"
+      dbPort: "3306" # 문자열로 감싸기
       dbUser: root
-      dbPassword: "12341234"
+      dbPassword: "12341234" # 문자열로 감싸기
   service:
     name: msa-main-service
     labels:
@@ -48,9 +48,9 @@ msaReview:
       port: 8080
     env:
       dbHost: msa-db-service
-      dbPort: "3306"
+      dbPort: "3306" # 문자열로 감싸기
       dbUser: root
-      dbPassword: "12341234"
+      dbPassword: "12341234" # 문자열로 감싸기
   service:
     name: msa-review-service
     labels:
@@ -71,9 +71,9 @@ msaUser:
       port: 8080
     env:
       dbHost: msa-db-service
-      dbPort: "3306"
+      dbPort: "3306" # 문자열로 감싸기
       dbUser: root
-      dbPassword: "12341234"
+      dbPassword: "12341234" # 문자열로 감싸기
   service:
     name: msa-user-service
     labels:
