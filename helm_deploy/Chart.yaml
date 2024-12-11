@@ -3,5 +3,5 @@ apiVersion: v2
 name: msa-helm-chart
 description: A Helm chart for MSA application
 type: application
-version: 0.1.12
+version: 0.1.13
 appVersion: 1.0.0

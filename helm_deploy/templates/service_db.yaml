@@ -1,0 +1,26 @@
+{{- if .Values.msaDb.service }}
+{{- range .Values.msaDb.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+  namespace: {{ $.Release.Namespace }}
+  labels:
+    app: {{ $.Values.msaDb.labels.app }}
+spec:
+  type: {{ .type }}
+  {{- if .clusterIP }}
+  clusterIP: {{ .clusterIP }}
+  {{- end }}
+  selector:
+    app: {{ $.Values.msaDb.labels.app }}
+  ports:
+  {{- range .ports }}
+  - port: {{ .port }}
+    targetPort: {{ .targetPort }}
+    {{- if .nodePort }}
+    nodePort: {{ .nodePort }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
