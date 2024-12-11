@@ -1,27 +1,23 @@
-# DB 관련 서비스 템플릿 생성
-{{- if .Values.msaDb.service }}
-{{- range .Values.msaDb.service }}
+# 일반 서비스 템플릿 생성
+{{- range $key, $value := .Values }}
+{{- if hasKey $value "service" }}
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .name }}
+  name: {{ $value.service.name }}
   namespace: {{ $.Release.Namespace }}
   labels:
-    app: {{ $.Values.msaDb.labels.app }}
-spec:
-  type: {{ .type }}
-  {{- if .clusterIP }}
-  clusterIP: {{ .clusterIP }}
-  {{- end }}
-  selector:
-    app: {{ $.Values.msaDb.labels.app }}
-  ports:
-  {{- range .ports }}
-  - port: {{ .port }}
-    targetPort: {{ .targetPort }}
-    {{- if .nodePort }}
-    nodePort: {{ .nodePort }}
+    {{- range $k, $v := $value.service.labels }}
+    {{ $k }}: {{ $v }}
     {{- end }}
-  {{- end }}
+spec:
+  type: {{ $value.service.type }}
+  selector:
+    {{- range $k, $v := $value.service.labels }}
+    {{ $k }}: {{ $v }}
+    {{- end }}
+  ports:
+  - port: {{ $value.service.port }}
+    targetPort: {{ $value.service.targetPort }}
 {{- end }}
 {{- end }}
