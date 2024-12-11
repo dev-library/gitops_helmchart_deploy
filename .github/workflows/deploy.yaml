@@ -3,12 +3,12 @@ name: EKS Deploy
 on:
   push:
     branches:
-      - main # Push to main branch triggers the workflow
+      - master # Push to main branch triggers the workflow
 
 jobs:
   deploy:
     name: Deploy to EKS
-    runs-on: ubuntu-latest
+    runs-on: helm-deploy
 
     steps:
     # Step 1: Checkout the repository
