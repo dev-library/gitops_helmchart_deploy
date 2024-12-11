@@ -1,6 +1,6 @@
 # 일반 서비스 템플릿 생성
 {{- range $key, $value := .Values }}
-{{- if hasKey $value "service" }}
+{{- if and (hasKey $value "service") (typeIs "map" $value.service) }}
 apiVersion: v1
 kind: Service
 metadata:
